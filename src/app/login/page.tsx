@@ -23,8 +23,8 @@ export default function Login() {
         <h1 className="text-4xl text-black">Faça login</h1>
 
         <form onSubmit={handleSubmit(handleSignin)} className="flex flex-col justify-center items-center gap-5">
-          <Input text="NOME DE USUÁRIO" type="text" {...register('login')} />
-          <Input text="SENHA" type="password" {...register('password')} />
+          <input type="text" {...register('login')} />
+          <input type="password" {...register('password')} />
 
           <button type="submit" className="flex justify-center items-center w-[150px] h-[100px] rounded-[25px] bg-[#B055B2]">
             <ArrowRight color="#1c1c1c" size={'50px'} />
