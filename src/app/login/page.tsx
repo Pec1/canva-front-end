@@ -1,15 +1,22 @@
 "use client"
-import { ArrowRight } from "lucide-react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../components/Input";
+import { ArrowRight } from "lucide-react";
 import { loginUser } from "./actions";
 import { useState } from "react";
 import Image from "next/image";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 
 type SignInFormData = {
   login: string;
   password: string;
 }
+
+const SignInFormSchema = z.object({
+  login: z.string().required(),
+  password: z.string(),
+})
 
 export default function Login() {
   const { register, handleSubmit, formState } = useForm<SignInFormData>()
@@ -42,6 +49,7 @@ export default function Login() {
           <Input 
             type="password" 
             placeholder="Senha" 
+            error={errors.password}
             {...register('password', {  
               required: 'Senha obrigatoria' 
             })} 
