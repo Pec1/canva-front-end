@@ -1,29 +1,33 @@
 "use client";
-import React, { ComponentProps, ForwardRefRenderFunction, forwardRef, useState } from 'react';
+import { FieldError } from "react-hook-form";
+import React, { ComponentProps, ForwardRefRenderFunction, InputHTMLAttributes, forwardRef, useState } from 'react';
 
-interface InputProps extends ComponentProps<'input'> {
-    text: string
-}
+type InputProps = InputHTMLAttributes<HTMLInputElement>
 
-const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ name, text, ...rest }, ref) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+    ({ placeholder, name, type, ...rest }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
 
     return (
         <div className="relative input-container">
             <input
-                placeholder={isFocused ? '' : text}
+                {...rest}
+                placeholder={isFocused ? '' : placeholder}
                 className="w-[372px] h-[68px] bg-gray-300 text-base text-[#1c1c1c] border-[3px] border-gray-300 rounded-md pl-3 pr-3 focus:outline-none focus:border-black focus:bg-transparent focus:text-xl placeholder-black font-bold placeholder-opacity-75"
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
+                type={type}
+                name={name}
                 ref={ref}
             />
             <span
-                className={`absolute bg-white p-2 rounded-full top-0 left-3 transform translate-y-[-50%] text-black font-bold transition-all duration-300 pointer-events-none ${isFocused ? 'top-0 opacity-100' : 'top-1/2 opacity-0'}`}
+                className={`absolute bg-white p-2 rounded-full top-0 left-3 transform translate-y-[-50%] text-black font-bold transition-all duration-300 pointer-events-none ${isFocused ? 'top-0 text-base opacity-100' : 'top-1/2 opacity-0'}`}
             >
-                {text}
+                {placeholder}
             </span>
         </div>
     )
-}
+    }
+)
 
-export const Input = forwardRef(InputBase);
+Input.displayName = 'Input'

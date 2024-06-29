@@ -4,12 +4,19 @@ import { Input } from "../components/Input";
 import { loginUser } from "./actions";
 import { useState } from "react";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+type SignInFormData = {
+  login: string;
+  password: string;
+}
 
 export default function Login() {
- const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, formState } = useForm<SignInFormData>()
 
-  function handleSignin(values) {
+  const { errors } = formState
+
+  const handleSignIn: SubmitHandler<SignInFormData> = (values) => {
     console.log(values)
   }
 
@@ -22,9 +29,23 @@ export default function Login() {
 
         <h1 className="text-4xl text-black">Faça login</h1>
 
-        <form onSubmit={handleSubmit(handleSignin)} className="flex flex-col justify-center items-center gap-5">
-          <input type="text" {...register('login')} />
-          <input type="password" {...register('password')} />
+        <form onSubmit={handleSubmit(handleSignIn)} className="flex flex-col justify-center items-center gap-5">
+          <Input 
+            type="text" 
+            placeholder="Login" 
+            error={errors.login}
+            {...register('login', {  
+              required: 'Login obrigatorio' 
+            })} 
+          />
+
+          <Input 
+            type="password" 
+            placeholder="Senha" 
+            {...register('password', {  
+              required: 'Senha obrigatoria' 
+            })} 
+          />
 
           <button type="submit" className="flex justify-center items-center w-[150px] h-[100px] rounded-[25px] bg-[#B055B2]">
             <ArrowRight color="#1c1c1c" size={'50px'} />
