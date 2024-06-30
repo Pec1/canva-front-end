@@ -8,23 +8,38 @@ import Image from "next/image";
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 
+type LoginResponse = {
+  message: string;
+/*   user: User | null; */
+  token: string;
+};
+
 type SignInFormData = {
   login: string;
   password: string;
 }
 
 const SignInFormSchema = z.object({
-  login: z.string().required(),
-  password: z.string(),
+  login: z.string().min(1, 'Campo obrigatorio'),
+  password: z.string().min(1, 'Campo obrigatorio'),
 })
 
 export default function Login() {
-  const { register, handleSubmit, formState } = useForm<SignInFormData>()
-
+  const { register, handleSubmit, formState } = useForm<SignInFormData>({
+    resolver: zodResolver(SignInFormSchema)
+  })
   const { errors } = formState
 
-  const handleSignIn: SubmitHandler<SignInFormData> = (values) => {
-    console.log(values)
+  const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
+    try {
+      const formData = new FormData();
+      formData.append('login', values.login);
+      formData.append('password', values.password);
+      
+      const response = await loginUser(formData)
+    } catch (error) {
+      console.error('Error logging in:', error)
+    }
   }
 
   return (
@@ -41,18 +56,14 @@ export default function Login() {
             type="text" 
             placeholder="Login" 
             error={errors.login}
-            {...register('login', {  
-              required: 'Login obrigatorio' 
-            })} 
+            {...register('login')} 
           />
 
           <Input 
             type="password" 
             placeholder="Senha" 
             error={errors.password}
-            {...register('password', {  
-              required: 'Senha obrigatoria' 
-            })} 
+            {...register('password')} 
           />
 
           <button type="submit" className="flex justify-center items-center w-[150px] h-[100px] rounded-[25px] bg-[#B055B2]">
