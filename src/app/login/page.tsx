@@ -35,8 +35,11 @@ export default function Login() {
       const formData = new FormData();
       formData.append('login', values.login);
       formData.append('password', values.password);
-      
+
       const response = await loginUser(formData)
+      const token = response.token
+
+      localStorage.setItem('accessToken', token);
     } catch (error) {
       console.error('Error logging in:', error)
     }
