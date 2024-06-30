@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 
-export default function userProfile() {
+export default function Profile() {
     const [cookie, setCookie] = useState<string | null>(null);
 
     useEffect(() => {
