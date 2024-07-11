@@ -1,17 +1,19 @@
 'use server'
 
-export async function getUser(cookie: string) {;
-    const response = await fetch(`http://127.0.0.1:5555/painel`, {
+export async function getUser(token: string | null) {
+     const response = await fetch(`http://127.0.0.1:5555/painel`, {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${cookie}`,
-        },
+            Cookie: `accessToken=${token}`
+        }
     });
-    console.log(response)
-   /*  if (!response.ok) {
-        throw new Error('Failed to fetch user data');
-    }    */ 
+    
+    if (!response.ok) {
+        throw Error(`Erro ao fazer requisição: ${response.status}`);
+    }
 
     const result = await response.json(); 
+    console.log(result)
+
     return result
 }

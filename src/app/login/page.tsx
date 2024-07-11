@@ -37,9 +37,8 @@ export default function Login() {
       formData.append('password', values.password);
 
       const response = await loginUser(formData)
-      const token = response.token
-
-      localStorage.setItem('accessToken', token);
+      console.log('Token JWT obtido:', response);
+      localStorage.setItem('accessToken', response.token);
     } catch (error) {
       console.error('Error logging in:', error)
     }
@@ -63,7 +62,7 @@ export default function Login() {
           />
 
           <Input 
-            type="password" 
+            type="text" 
             placeholder="Senha" 
             error={errors.password}
             {...register('password')} 
