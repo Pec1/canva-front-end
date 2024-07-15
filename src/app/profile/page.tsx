@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie';
 type User = {
   id: string;
   userName: string;
+  email: string;
   login: string;
   password: string;
   slug: string;
@@ -32,8 +33,14 @@ export default function Profile() {
         <div>
             {user && (
                 <div>
-                    <h1>Nome: {user.userName}</h1>
-                    <p>Id: {user.id}</p>
+                  <h1>Token de acesso: {token}</h1>
+                  <p>Id: {user.id}</p>
+                  <p>Nome: {user.userName}</p>
+                  <p>Email: {user.email}</p>
+                  <p>Login: {user.login}</p>
+                  <p>Senha: {user.password}</p>
+                  <p>Slug: {user.slug}</p>
+                  <p>Criado em: {user.createdAt}</p>
                 </div>
             )}
         </div>
