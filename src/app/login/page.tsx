@@ -45,7 +45,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen bg-[#1c1c1c] font-sans">
+    <div className="flex justify-center items-center w-screen h-screen font-sans">
       <div className="flex flex-col justify-center items-center w-[500px] h-[700px] rounded-[50px] bg-white">
         <Image width={150} height={150} src="./logo-svg-pvldo.svg" alt="Logo do projeto" title="Logo de um calango roxo" />
 
