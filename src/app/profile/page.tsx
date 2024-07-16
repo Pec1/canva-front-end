@@ -20,8 +20,8 @@ export default function Profile() {
     useEffect(() => {
         async function fetchData() {
           try {
-            // const response = await getUser(token);
-            // setUser(response.user); 
+            const response = await getUser(token);
+            setUser(response.user); 
           } catch (error) {
             console.error('Erro ao buscar dados:', error);
           }
@@ -41,13 +41,12 @@ export default function Profile() {
             <div className="flex flex-col items-center w-[300px] h-[315px] border-[1px] border-t-0 rounded-b-xl border-[#FFFFFF] bg-[#313338] text-zinc-300">
               <div className="flex flex-col justify-center items-center mt-16">
                 <h1 className="font-bold text-3xl">{user?.userName}</h1>
-                <p>@{user?.slug}</p>
-                <p>{user?.email}</p>
-                <p>{user?.login}</p>
-                <p>{user?.password}</p>
+                <p className="opacity-65">@{user?.slug}</p>
+                <p className="opacity-65">{user?.email}</p>
+                <p className="opacity-65">{user?.login}</p>
+                <p className="opacity-65">{user?.password}</p>
+                <p className="opacity-65">{user?.createdAt}</p>
               </div>
-
-              {user?.createdAt}
             </div>
           </div>
         </div>
