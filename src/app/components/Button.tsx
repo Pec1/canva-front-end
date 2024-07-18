@@ -10,7 +10,7 @@ const button = tailwVa ({
             xs: 'w-8 h-8',
         },
         color: {
-            primary: 'bg-[#FFFFFF] shadow-bottom-zinc-400 text-zinc-900',
+            primary: 'bg-[#FFFFFF] text-zinc-900',
             second: 'bg-emerald-600 text-zinc-900',
         },
         success: {
