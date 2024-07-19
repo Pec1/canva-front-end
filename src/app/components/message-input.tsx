@@ -1,5 +1,5 @@
 import Textarea from '@mui/joy/Textarea';
-import Button from "./Button";
+import Button from "./ui/Button";
 import { SendHorizontal } from "lucide-react";
 import { ChangeEvent, FormEvent, useState } from 'react';
 

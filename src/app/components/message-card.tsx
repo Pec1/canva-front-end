@@ -4,9 +4,11 @@ import { ptBR } from 'date-fns/locale'
 interface MessageCardProps {
     message: {
         id: string,
-        date: Date,
-        user: string,
         content: string
+        date: Date,
+        user: {
+            userName: string,
+        },
     }
     onMessageDeletded?: (id: string) => void
 }
@@ -18,7 +20,7 @@ export function MessageCard({ message, onMessageDeletded }: MessageCardProps) {
             
             <div className='w-[600px]'>
                 <div className="flex items-center">
-                    <h1 className='font-medium text-center text-2xl'>{message.user}<span className='opacity-50 text-sm'> - às {format(message.date, 'HH:mm')}</span></h1>
+                    <h1 className='font-medium text-center text-xl'>{message.user.userName}<span className='opacity-50 text-sm'> - às {format(message.date, 'HH:mm')}</span></h1>
                 </div>
 
                 <div className="">

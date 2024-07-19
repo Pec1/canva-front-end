@@ -1,6 +1,6 @@
 "use client"
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Input } from "../components/Input";
+import { Input } from "../components/ui/Input";
 import { ArrowRight } from "lucide-react";
 import { loginUser } from "./actions";
 import { FormEvent, useState } from "react";
