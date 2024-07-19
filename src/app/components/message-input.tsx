@@ -35,13 +35,13 @@ export function MessageInput({ onMessageCreated }: NewMessgeCardProps) {
     }
 
     return (
-        <form className="flex justify-center gap-2 w-[750px] h-max-[75px] mb-6">
+        <form className="flex justify-between gap-2 w-full mt-5">
             <Textarea
               value={content}
               onChange={hadleContentChanged}
               maxRows={4}
               variant="soft"
-              className="w-[550px] pl-8 pr-8 border-[1px] rounded-xl border-[#FFFFFF]"
+              className="w-[600px] pl-8 pr-8 border-[1px] rounded-xl"
               placeholder="Digite sua mensagem"
               sx={  
                 {

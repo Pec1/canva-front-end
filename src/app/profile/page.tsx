@@ -31,8 +31,8 @@ export default function Profile() {
   useEffect(() => {
       async function fetchData() {
         try {
-          const response = await getUser(token);
-          setUser(response.user);
+          /* const response = await getUser(token);
+          setUser(response.user); */
         } catch (error) {
           console.error('Erro ao buscar dados:', error);
         }
@@ -57,41 +57,37 @@ export default function Profile() {
     : messages      
   
   return (
-      <div className="flex justify-center items-center w-screen h-screen text-zinc-300">
-        <div className="flex flex-col w-[300px] h-[450px]">
-          <div className="relative w-[300px] h-[135px] border-[1px] border-b-0 rounded-t-xl border-[#FFFFFF] bg-[#1C1C1C]">
-            <div className="absolute flex justify-center items-center top-2/3 left-1/3 w-[100px] h-[100px] rounded-xl bg-[#B055B2] font-bold text-6xl">
-              UT
-            </div>
+    <div className="flex justify-center items-center w-screen h-screen text-zinc-300">
+      <div className="flex flex-col w-[300px] h-[450px]">
+        <div className="relative w-[300px] h-[135px] border-[1px] border-b-0 rounded-t-xl border-[#FFFFFF] bg-[#1C1C1C]">
+          <div className="absolute flex justify-center items-center top-2/3 left-1/3 w-[100px] h-[100px] rounded-xl bg-[#B055B2] font-bold text-6xl">
+            UT
           </div>
-
-          <div className="flex flex-col items-center w-[300px] h-[315px] border-[1px] border-t-0 rounded-b-xl border-[#FFFFFF] bg-[#313338]">
-            <div className="flex flex-col justify-center items-center mt-16">
-              <h1 className="font-bold text-3xl">{user?.userName}</h1>
-              <p className="opacity-65">@{user?.slug}</p>
-              <p className="opacity-65">{user?.email}</p>
-              <p className="opacity-65">{user?.login}</p>
-              <p className="opacity-65">{user?.password}</p>
-              <p className="opacity-65">{user?.createdAt}</p>
-            </div>
-          </div>
-        </div>                  
-
-        <div className="flex flex-col justify-end items-center w-[700px] h-[600px] border-[1px] rounded-xl border-[#FFFFFF] bg-[#1c1c1c]">
-          <div className="flex flex-col gap-4">
-            {filteredMessages.map(message => {
-              return (
-                <>
-                  <div className="h-px bg-zinc-50 opacity-40"/>
-                  <MessageCard key={message.id} message={message} />
-                </>
-              )
-            })}
-          </div>  
-
-          <MessageInput onMessageCreated={onMessageCreated} />
         </div>
+
+        <div className="flex flex-col items-center w-[300px] h-[315px] border-[1px] border-t-0 rounded-b-xl border-[#FFFFFF] bg-[#313338]">
+          <div className="flex flex-col justify-center items-center mt-16">
+            <h1 className="font-bold text-3xl">{user?.userName}</h1>
+            <p className="opacity-65">@{user?.slug}</p>
+            <p className="opacity-65">{user?.email}</p>
+            <p className="opacity-65">{user?.login}</p>
+            <p className="opacity-65">{user?.password}</p>
+            <p className="opacity-65">{user?.createdAt}</p>
+          </div>
+        </div>
+      </div>                  
+
+      <div className="flex flex-col justify-end items-center w-[700px] h-[600px] p-5 border-[1px] rounded-xl border-[#FFFFFF] bg-[#1c1c1c]">
+        <div className="flex flex-col-reverse w-full h-full border-[1px] rounded-xl border-red-800">
+          {filteredMessages.map(message => {
+            return (
+              <MessageCard key={message.id} message={message} />
+            )
+          })}
+        </div>
+        <MessageInput onMessageCreated={onMessageCreated} />
       </div>
+    </div>
   );
 }
 {/* <h1>Token de acesso: {token}</h1>*/}
