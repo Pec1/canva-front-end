@@ -2,9 +2,8 @@
 import { FormEvent, useEffect, useState } from "react";
 import { getUser } from "./actions";
 import { useCookies } from 'react-cookie';
-import Textarea from '@mui/joy/Textarea';
-import Button from "../components/Button";
-import { SendHorizontal } from "lucide-react";
+import { MessageInput } from "../components/message-input";
+import { MessageCard } from "../components/message-card";
 
 interface Message {
   id: string,
@@ -25,15 +24,15 @@ type User = {
 
 export default function Profile() {
   const [user, setUser] = useState<User | null>(null);
+  const [search, setSearch] = useState('')
   const [messages, setMessages] = useState<Message[]>([])
-  const [content, setContent] = useState('')
 
   const token = localStorage.getItem('accessToken')
   useEffect(() => {
       async function fetchData() {
         try {
           const response = await getUser(token);
-          setUser(response.user); 
+          setUser(response.user);
         } catch (error) {
           console.error('Erro ao buscar dados:', error);
         }
@@ -53,7 +52,9 @@ export default function Profile() {
     setMessages(messagesArray)
   }
 
-  function handleSaveMessage(event: FormEvent) {}
+  const filteredMessages = search !== ''
+    ? messages.filter(message => message.content.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+    : messages      
   
   return (
       <div className="flex justify-center items-center w-screen h-screen text-zinc-300">
@@ -74,26 +75,21 @@ export default function Profile() {
               <p className="opacity-65">{user?.createdAt}</p>
             </div>
           </div>
-        </div>
+        </div>                  
 
-        <div className="flex justify-center items-end w-[700px] h-[600px] border-[1px] rounded-xl border-[#FFFFFF] bg-[#1c1c1c]">
-          <form className="flex justify-center gap-2 w-[750px] h-max-[75px] mb-6">
-            <Textarea
-              value={content}
-              maxRows={4}
-              variant="soft"
-              className="w-[550px] pl-8 pr-8 border-[1px] rounded-xl border-[#FFFFFF]"
-              placeholder="Digite sua mensagem"
-              sx={  
-                {
-                  'background':'#1c1c1c',
-                  'color':'#FFFFFF',
-                  '--Textarea-focusedInset': 'none',
-                }
-              }
-            />
-            <Button icon={SendHorizontal} onClick={handleSaveMessage} />
-          </form>
+        <div className="flex flex-col justify-end items-center w-[700px] h-[600px] border-[1px] rounded-xl border-[#FFFFFF] bg-[#1c1c1c]">
+          <div className="flex flex-col gap-4">
+            {filteredMessages.map(message => {
+              return (
+                <>
+                  <div className="h-px bg-zinc-50 opacity-40"/>
+                  <MessageCard key={message.id} message={message} />
+                </>
+              )
+            })}
+          </div>  
+
+          <MessageInput onMessageCreated={onMessageCreated} />
         </div>
       </div>
   );
