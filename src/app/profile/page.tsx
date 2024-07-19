@@ -25,14 +25,22 @@ type User = {
 export default function Profile() {
   const [user, setUser] = useState<User | null>(null);
   const [search, setSearch] = useState('')
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<Message[]>(() => {
+    const messagesOnStorage = localStorage.getItem('messages')
+
+    if (messagesOnStorage) {
+      return JSON.parse(messagesOnStorage)
+    }
+
+    return []
+  })
 
   const token = localStorage.getItem('accessToken')
   useEffect(() => {
       async function fetchData() {
         try {
-          /* const response = await getUser(token);
-          setUser(response.user); */
+          const response = await getUser(token);
+          setUser(response.user);
         } catch (error) {
           console.error('Erro ao buscar dados:', error);
         }
@@ -50,6 +58,7 @@ export default function Profile() {
     }
     const messagesArray = [newMessage, ...messages]
     setMessages(messagesArray)
+    localStorage.setItem('messages', JSON.stringify(messagesArray))
   }
 
   const filteredMessages = search !== ''
@@ -78,7 +87,7 @@ export default function Profile() {
       </div>                  
 
       <div className="flex flex-col justify-end items-center w-[700px] h-[600px] p-5 border-[1px] rounded-xl border-[#FFFFFF] bg-[#1c1c1c]">
-        <div className="flex flex-col-reverse w-full h-full border-[1px] rounded-xl border-red-800">
+        <div className="flex flex-col-reverse w-[650px] h-full">
           {filteredMessages.map(message => {
             return (
               <MessageCard key={message.id} message={message} />
