@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.6.0",
     "@mui/joy": "^5.0.0-beta.48",
     "@types/ws": "^8.5.11",
+    "axios": "^1.7.2",
     "date-fns": "^3.6.0",
     "lucide-react": "^0.396.0",
     "next": "14.2.4",

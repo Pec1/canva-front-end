@@ -7,6 +7,7 @@ import { FormEvent, useState } from "react";
 import Image from "next/image";
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { api } from "@/lib/axios";
 
 type LoginResponse = {
   message: string;
@@ -44,11 +45,11 @@ export default function Login() {
     }
   } */
 
-  function handleSignIn(data: SignInFormData) {
-    console.log(data)
-
-    const response = loginUser(data)
-    console.log(response)
+  async function handleSignIn(data: SignInFormData) {
+    const { login, password } = data;
+    const response = await api.post('/login', { login, password })
+    const { message, token } = response.data
+    console.log(response.data)
   }
 
   return (
