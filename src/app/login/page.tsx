@@ -29,7 +29,7 @@ export default function Login() {
   })
   const { errors } = formState
 
-  const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
+/*   const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
     try {
       const formData = new FormData()
       
@@ -42,6 +42,13 @@ export default function Login() {
     } catch (error) {
       console.error('Error logging in:', error)
     }
+  } */
+
+  function handleSignIn(data: SignInFormData) {
+    console.log(data)
+
+    const response = loginUser(data)
+    console.log(response)
   }
 
   return (
