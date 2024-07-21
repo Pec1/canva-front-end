@@ -48,8 +48,15 @@ export default function Login() {
   async function handleSignIn(data: SignInFormData) {
     const { login, password } = data;
     const response = await api.post('/login', { login, password })
-    const { message, token } = response.data
+    const { message } = response.data
     console.log(response.data)
+
+    const response2 = await api.get('/painel', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response2.data)
   }
 
   return (
