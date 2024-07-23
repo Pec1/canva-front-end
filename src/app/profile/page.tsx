@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getUser } from "./actions";
 import { MessageInput } from "../components/message-input";
 import { MessageCard } from "../components/message-card";
+import { api } from "@/lib/axios";
 
 type User = {
   id: string;
@@ -34,20 +35,21 @@ export default function Profile() {
   })
   const [ws, setWs] = useState<WebSocket | null>(null);
 
-  const token = localStorage.getItem('accessToken')
+  //const token = localStorage.getItem('accessToken')
   useEffect(() => {
       async function fetchData() {
         try {
-          const response = await getUser(token);
-          setUser(response.user);
+          const response = await getUser()
+          console.log(response)
+          // setUser(response.user);
         } catch (error) {
           console.error('Erro ao buscar dados:', error);
         }
       }
   
       fetchData();
-  }, [token]);
-  
+  }, []);
+
   useEffect(() => {
     const newWs = new WebSocket('ws://localhost:5555');
     setWs(newWs);

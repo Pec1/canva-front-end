@@ -30,34 +30,29 @@ export default function Login() {
   })
   const { errors } = formState
 
-/*   const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
+  const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
     try {
       const formData = new FormData()
-      
       formData.append('login', values.login)
       formData.append('password', values.password)
 
       const response = await loginUser(formData)
       console.log('Token JWT obtido:', response)
-      localStorage.setItem('accessToken', response.token)
+      /* localStorage.setItem('accessToken', response.token) */
     } catch (error) {
       console.error('Error logging in:', error)
     }
-  } */
-
+  }
+/* 
   async function handleSignIn(data: SignInFormData) {
     const { login, password } = data;
     const response = await api.post('/login', { login, password })
     const { message } = response.data
     console.log(response.data)
 
-    const response2 = await api.get('/painel', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response2 = await api.get('/painel');
     console.log(response2.data)
-  }
+  } */
 
   return (
     <div className="flex justify-center items-center w-screen h-screen font-sans">
